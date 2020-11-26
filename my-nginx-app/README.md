@@ -1,15 +1,12 @@
 # Sources
 
-https://dzone.com/articles/how-to-dockerize-angular-app
-https://docs.docker.com/engine/examples/dotnetcore/
-
-https://dzone.com/articles/multi-environment-angular-with-dynamic-backend-uri
-https://hackernoon.com/applying-angular-runtime-configurations-in-dockerized-environments-kr3a33pr
-
-https://github.com/GoogleCloudPlatform/nginx-docker/blob/master/1/README.md
-https://kubernetes.github.io/ingress-nginx/deploy/#detect-installed-version_1
-
-https://docs.microsoft.com/en-us/azure/aks/azure-files-volume
+* https://dzone.com/articles/how-to-dockerize-angular-app
+* https://docs.docker.com/engine/examples/dotnetcore/
+* https://dzone.com/articles/multi-environment-angular-with-dynamic-backend-uri
+* https://hackernoon.com/applying-angular-runtime-configurations-in-dockerized-environments-kr3a33pr
+* https://github.com/GoogleCloudPlatform/nginx-docker/blob/master/1/README.md
+* https://kubernetes.github.io/ingress-nginx/deploy/#detect-installed-version_1
+* https://docs.microsoft.com/en-us/azure/aks/azure-files-volume
 
 # Docker
 
