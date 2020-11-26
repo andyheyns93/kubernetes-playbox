@@ -1,0 +1,8 @@
+<ng-container *ngIf="weatherForecast$ | async">
+  <div *ngFor="let forecast of weatherForecast$ | async">
+    {{ forecast.date }}
+    {{ forecast.temperatureC }}
+    {{ forecast.temperatureF }}
+    {{ forecast.summary }}
+  </div>
+</ng-container>

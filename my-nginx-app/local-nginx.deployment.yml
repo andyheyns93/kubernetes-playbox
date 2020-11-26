@@ -1,0 +1,113 @@
+# k exec -it pod/my-nginx-app-fcd6466b6-xmx2b  -c ubuntu -- /bin/bash
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-storage-pv
+  labels:
+    type: local-storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+  capacity:
+    storage: 1Gi
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: /run/desktop/mnt/host/c/temp #C:\temp
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - docker-desktop
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-storage-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx-app
+  labels:
+    app: my-nginx-app
+spec:
+  revisionHistoryLimit: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-nginx-app
+  template:
+    metadata:
+      labels:
+        app: my-nginx-app
+    spec:
+      volumes:
+        - name: local-storage-volume
+          persistentVolumeClaim:
+            claimName: local-storage-pvc
+      containers:
+      - image: nginx
+        name: nginx
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html
+            name: local-storage-volume
+      - image: ubuntu:latest
+        name: ubuntu
+        imagePullPolicy: Always
+        command:
+          - /bin/bash
+          - "-c"
+          - "sleep 60m"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        volumeMounts:
+          - mountPath: /data
+            name: local-storage-volume
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx-app-load-balancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-nginx-app
+  ports:
+    - port: 80
+      targetPort: 80

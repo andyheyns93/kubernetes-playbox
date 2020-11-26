@@ -1,0 +1,42 @@
+# Run docker-compose build
+# Run docker-compose up
+# Visit http://localhost:4200
+
+# DOCKER COMPOSE
+# Run docker-compose down
+# docker stack deploy -c docker-compose.yml kub-app
+
+# SKAFFLOD
+# skaffold init --compose-file docker-compose.yml
+
+version: '3.7'
+
+services:
+
+  appFrontend:
+    container_name: kub-app
+    image: andyheyns93/kub-app:0.1
+    build:
+      context: ./src/angular-app
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on: 
+       - appBackend
+    networks:
+      - app-network
+
+  appBackend:
+    container_name: kub-api
+    image: andyheyns93/kub-api:0.1
+    build:
+      context: ./src/dotnet-api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
