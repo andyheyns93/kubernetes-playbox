@@ -29,11 +29,14 @@ Navigate to: 'localhost:80' to show the contents of the file (nginx will print t
 
 2. AZURE VOLUME
 
+* Create an Azaure Storage account
+* Create a FileShare within the storage account (`'aksshare'`)
+
 `kubectl apply -f azure-nginx.deployment.yml`
 
 This will deploy an NGINX with a shared volume (Azure Storage Account Share) with an ubuntu image as a sidecar.
 
-The ubuntu image will automatically create an `index.html` file 
+The ubuntu image will automatically create an `index.html` file (visit your fileshare `'aksshare'` on your storage account) 
 
 Navigate to: 'localhost:80' to show the contents of the file (nginx will print the file)
 
