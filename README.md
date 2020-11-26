@@ -2,7 +2,7 @@
 
 `kubectl apply -f all.deployment.yml`
 
-This will deploy a frontend app (anuglar-app) on 'localhost:4200' which will do a HTTP call to the backend app (dotnet-api) on 'localhost:8080/weatherforecast'
+This will deploy a frontend app (angular-app) on 'localhost:4200' which will do a HTTP call to the backend app (dotnet-api) on 'localhost:8080/weatherforecast'
 
 You can also seperately deploy these 2 deployments in kubernetes:
 
