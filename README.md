@@ -29,7 +29,7 @@ Navigate to: 'localhost:80' to show the contents of the file (nginx will print t
 
 2. AZURE VOLUME
 
-* Create an Azaure Storage account
+* Create an Azure Storage account
 * Create a FileShare within the storage account (`'aksshare'`)
 
 `kubectl apply -f azure-nginx.deployment.yml`
@@ -37,6 +37,8 @@ Navigate to: 'localhost:80' to show the contents of the file (nginx will print t
 This will deploy an NGINX with a shared volume (Azure Storage Account Share) with an ubuntu image as a sidecar.
 
 The ubuntu image will automatically create an `index.html` file (visit your fileshare `'aksshare'` on your storage account) 
+
+Also the 'initContainers' will look if the PVC (persistent volume claim) and the LoadBalancer EXISTS
 
 Navigate to: 'localhost:80' to show the contents of the file (nginx will print the file)
 
