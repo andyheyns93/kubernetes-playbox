@@ -1,11 +1,11 @@
-[---KOMPOSE---]
+# Kompose
 
 kompose convert
 kompose convert --out ./my-kubernetes-app.yml -> WILL CREATE FILE
 kompose convert --out ./output -> FOLDER MUST EXISTS!
 
+# Skaffold
 
-[---SKAFFOLD---]
 skaffold init --compose-file docker-compose.yml
 skaffold dev -f skaffold.yaml
 
